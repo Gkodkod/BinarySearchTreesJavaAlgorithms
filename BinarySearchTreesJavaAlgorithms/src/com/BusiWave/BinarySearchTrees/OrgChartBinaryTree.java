@@ -17,6 +17,15 @@ public class OrgChartBinaryTree {
 
     public void addNode(int key, String name) {
 
+	if (name == null){
+	    System.out.println("Adding Node to Tree with Key:" + key + " Title = " + name + " failed. Title cannot be null.");
+	    return;
+	}
+	if (key == 0){
+	    System.out.println("Adding Node to Tree with Key:" + key + " Title = " + name + " failed. Key cannot be 0.");
+	    return;
+	}
+	
 	// Create a new Node and initialize it
 	NodeWithName newNode = new NodeWithName(key, name);
 	System.out.println("Adding Node to Tree with Key:" + key + " \tTitle = " + name);
@@ -47,7 +56,7 @@ public class OrgChartBinaryTree {
 			parent.left = newNode;
 			return; // All Done
 		    }
-		} else { // If we get here put the node on the right
+		} else if (key > focusNode.getKey()) { // If we get here put the node on the right
 		    focusNode = focusNode.right;
 		    // If the right child has no children
 		    if (focusNode == null) {
@@ -55,6 +64,10 @@ public class OrgChartBinaryTree {
 			parent.right = newNode;
 			return; // All Done
 		    }
+		}
+		else {
+		    System.out.println("Adding Node to Tree with Key:" + key + " Title = " + name + " failed. Key already exists.");
+		    break;
 		}
 	    }
 	}
@@ -122,6 +135,9 @@ public class OrgChartBinaryTree {
 	theTree.addNode(100, "Sr. Software Engineer/AVP");
 	theTree.addNode(85, "Salesman 1");
 	theTree.addNode(101, "Jr. Developer");
+	theTree.addNode(101, "Developer");
+	theTree.addNode(99, null);
+	theTree.addNode(0, "Office worker");
 	
 	// Different ways to traverse binary trees
 	BTreePrinter.printNode(root);
@@ -133,7 +149,7 @@ public class OrgChartBinaryTree {
 	System.out.println("\n===Binary Search Tree in-Order Traversal===");
 	theTree.inOrderTraverseTree(OrgChartBinaryTree.root);
 	System.out.println("\n===Binary Search Tree pre-Order Traversal===");
-	theTree.preorderTraverseTree(OrgChartBinaryTree.root);
+	theTree.preorderTraverseTree(OrgChartBinaryTree.root); 
 	System.out.println("\n===Binary Search Tree post-Order Traversal===");
 	theTree.postOrderTraverseTree(OrgChartBinaryTree.root);
       
